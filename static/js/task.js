@@ -14,6 +14,7 @@ var mycounterbalance = counterbalance;  // they tell you which condition you hav
 // All pages to be loaded
 var pages = [
 	"instructions/instruct-ready.html",
+  "experiment/client.html",
 ];
 
 psiTurk.preloadPages(pages);
@@ -42,6 +43,8 @@ $(window).load( function(){
     psiTurk.doInstructions(
     	instructionPages, // a list of pages you want to display in sequence
       function () {
+        psiTurk.showPage('experiment/client.html');
+        $('#bootstrap').prop('disabled', true);
         $(function () {
           window.hero = new Hero({
             token: 'test',
