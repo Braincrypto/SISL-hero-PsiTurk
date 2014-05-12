@@ -47,7 +47,7 @@ $(window).load( function(){
         $('#bootstrap').prop('disabled', true);
         $(function () {
           window.hero = new Hero({
-            token: 'test',
+            token: 'simpletest6',
             callback: psiTurk.completeHIT,
           });
           window.scrollTo(0,1);
