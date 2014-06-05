@@ -40,18 +40,54 @@ var currentview;
  * Run Task
  ******************/
 $(window).load( function(){
-    psiTurk.doInstructions(
-    	instructionPages, // a list of pages you want to display in sequence
-      function () {
-        psiTurk.showPage('experiment/client.html');
-        $('#bootstrap').prop('disabled', true);
-        $(function () {
-          window.hero = new Hero({
-            token: 'simpletest6',
-            callback: psiTurk.completeHIT,
-          });
-          window.scrollTo(0,1);
-        });
+  var token = psiTurk.taskdata.get('workerId');
+  
+  console.log('Loading app for workerId: ' + workerId);
+  console.log(Config.endPoint + '/user/' + token + '/create');
+  $.ajax({
+    type: "POST",
+    crossDomain: true,
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    url: Config.endPoint + '/user/' + token + '/create',
+    data: '',
+    // Will retry three times
+    timeout: 60000,
+    tryCount: 0,
+    retryLimit: 3,
+    error: function(xhr, textStatus, errorThrown ) {
+      if (textStatus === 'timeout') {
+        console.log('Timeout');
+        this.tryCount++;
+        if (this.tryCount <= 3) {
+          //try again
+          $.ajax(this);
+          return;
+        }            
+        return;
       }
-    );
+    },
+    success: function() {
+      console.log('WorkerId created!');
+    },
+    complete: function() {
+      console.log('WorkerId create request sent.');
+    }
+  });
+
+  psiTurk.doInstructions(
+    instructionPages, // a list of pages you want to display in sequence
+    function () {
+      psiTurk.showPage('experiment/client.html');
+              // disable bootstrap for rendering the experiment
+      $('#bootstrap').prop('disabled', true);
+      $(function () {
+        window.hero = new Hero({
+          token: 'test2',
+          callback: psiTurk.completeHIT,
+        });
+        window.scrollTo(0,1);
+      });
+    }
+  );
 });
