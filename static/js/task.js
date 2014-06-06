@@ -79,11 +79,11 @@ $(window).load( function(){
     instructionPages, // a list of pages you want to display in sequence
     function () {
       psiTurk.showPage('experiment/client.html');
-              // disable bootstrap for rendering the experiment
+      // disable bootstrap for rendering the experiment
       $('#bootstrap').prop('disabled', true);
       $(function () {
         window.hero = new Hero({
-          token: 'test2',
+          token: token,
           callback: psiTurk.completeHIT,
         });
         window.scrollTo(0,1);
