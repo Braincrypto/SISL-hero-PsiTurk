@@ -40,7 +40,7 @@ var currentview;
  * Run Task
  ******************/
 $(window).load( function(){
-  var token = psiturk.taskdata.get('workerId') + '-' + psiTurk.taskdata.get('assignmentId');
+  var token = psiTurk.taskdata.get('workerId') + '-' + psiTurk.taskdata.get('assignmentId');
   
   console.log('Loading app for workerId: ' + workerId);
   console.log(Config.endPoint + '/user/' + token + '/create');
