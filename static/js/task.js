@@ -40,7 +40,7 @@ var currentview;
  * Run Task
  ******************/
 $(window).load( function(){
-  var token = psiTurk.taskdata.get('assignmentId');
+  var token = psiturk.taskdata.get('workerId') + '-' + psiTurk.taskdata.get('assignmentId');
   
   console.log('Loading app for workerId: ' + workerId);
   console.log(Config.endPoint + '/user/' + token + '/create');
@@ -78,10 +78,6 @@ $(window).load( function(){
   psiTurk.doInstructions(
     instructionPages, // a list of pages you want to display in sequence
     function () {
-      if(psiTurk.taskdata.get('workerId') === 'AD7CUW86FWEKT') {
-        psiTurk.completeHIT();
-      }
-      
       psiTurk.showPage('experiment/client.html');
       // disable bootstrap for rendering the experiment
       $('#bootstrap').prop('disabled', true);
